@@ -1,9 +1,7 @@
 ---
 title: "Research pipelines"
-subtitle: "A collection of references to make you happier"
 author:
   - George G Vega Yon
-  - Emil Hvitfeldt
 institute: "USC IMAGE project"
 date: "2019/10/24"
 output:
@@ -87,7 +85,8 @@ reproducible
 
 -  Include it with the paper.
 
--  Put it on a repo online like [zenodo](https://zenodo.org).
+-  Put it on a repo online like [zenodo](https://zenodo.org) (see for example
+the [Gene Ontology's profile](https://zenodo.org/communities/gene-ontology/?page=1&size=20)) .
 
 -  Include instructions about how to get the data (e.g. in an experimental
    setting, how did you get the samples).
@@ -108,26 +107,29 @@ reproducible
 
 # Tiers of reproducibility
 
-## Basic
+### ~~minimum~~ Basic
 
 *  **Data** Use public dataset (or at least shareable), or publish your dataset.
 
 *  **Analysis** source code/steps of your analysis.
 
 
-## Plus
+### Plus
 
 
 *  **Tools** Use open source software (like R, python, etc.).
 
 *  **Decency** Write your code neatly (like Emil does)
 
-*  **Tidy** Organize your work in a structured way (folders+readme files)
+*  **Tidy** Organize your work in a structured way (folders+readme files,
+    [here](https://github.com/gvegayon/fctc) is one example)
 
 
-## Premium
+### Premium
 
-*  **plug-n-play** Use a container (like docker) 
+*  **plug-n-play** Use a container (like [docker](https://www.docker.com/) or
+[singularity](https://sylabs.io/))
+
 
 ---
 class: center, middle
@@ -136,10 +138,17 @@ class: center, middle
 
 ![](fig/pipeline.svg)
 
-Diagram by [문건웅](https://www.linkedin.com/in/%EA%B1%B4%EC%9B%85-%EB%AC%B8-5ab72599/?locale=en_US) showed [here](https://www.slideshare.net/ssuser7e30b2/reproducible-research1)
----
+Source: Diagram by [문건웅](https://www.linkedin.com/in/%EA%B1%B4%EC%9B%85-%EB%AC%B8-5ab72599/?locale=en_US) showed [here](https://www.slideshare.net/ssuser7e30b2/reproducible-research1)
 
-# What the modern researcher does
+---
+class: center, bottom, inverse
+background-image: url("https://media.giphy.com/media/wLtPSVuz0co5G/giphy.gif")
+
+Now, a lot of it has to do with automatization...
+---
+class: middle
+
+## Automatizing your research: automatic reports
 
 - For quick reports use tools like [**rmarkdown**](https://cran.r-project.org/package=rmarkdown) which is based on
 [**pandoc**](https://pandoc.org)
@@ -149,21 +158,85 @@ Diagram by [문건웅](https://www.linkedin.com/in/%EA%B1%B4%EC%9B%85-%EB%AC%B8-
 
 - Automate tables: In R, you can use [**texreg**](https://cran.r-project.org/package=texreg), [**xtable**](https://cran.r-project.org/package=xtable)
 
+---
+
+## Automatizing your research: automatic reports (example) 
+
+.pull-left[
+
+```r
+data(anorexia, package = "MASS")
+
+anorex.1 <- glm(
+  Postwt ~ Treat,
+  data = anorexia
+  )
+  
+anorex.2 <- glm(
+  Postwt ~ Prewt + Treat,
+  data = anorexia
+  )
+
+library(texreg)
+htmlreg(
+  list(anorex.1, anorex.2),
+  doctype = FALSE
+  )
+```
+]
+
+<div style="font-size: small;" class="pull-right">
+
+```{r texreg-tab, echo=FALSE, results='asis'}
+data(anorexia, package = "MASS")
+
+anorex.1 <- glm(Postwt ~ Treat, data = anorexia)
+anorex.2 <- glm(Postwt ~ Prewt + Treat, data = anorexia)
+
+texreg::htmlreg(list(anorex.1, anorex.2), doctype = FALSE)
+```
+
+</div>
+
+--
+
 Checkout the R CRAN Task View for [Reproducible Research](https://cran.r-project.org/web/views/ReproducibleResearch.html)
 
 ---
+class: center, bottom, inverse
+background-image: url("http://www.phdcomics.com/comics/archive/phd101212s.gif")
+background-size: 40%
 
-## Things to avoid
+<!-- ![](http://www.phdcomics.com/comics/archive/phd101212s.gif){style="width:50%" } -->
 
-*  Use experimental (unpublished) software tools (e.g. a Python/R Library/Package
-   available only on Github)
-
-  
+Version control to the rescue...
 ---
+class: center, middle
 
-Some other resources:
+# Git: The stupid version control system
 
-- rOpenSci's ["Reproduciblity in Science"](https://ropensci.github.io/reproducibility-guide/)
+```{r, echo=FALSE, out.width="600px"}
+knitr::include_graphics("fig/git.svg")
+```
 
-- Karl Broman's ["Tools for Reproducible Research Spring, 2016"](http://kbroman.org/Tools4RR/)
+(Live demo now)
 
+---
+class: center, middle, inverse
+
+# Thank you!
+
+
+
+## Some other resources
+
+ rOpenSci's ["Reproduciblity in Science"](https://ropensci.github.io/reproducibility-guide/)
+
+ Karl Broman's ["Tools for Reproducible Research Spring, 2016"](http://kbroman.org/Tools4RR/)
+
+ The [**workflowr**](https://github.com/jdblischak/workflowr) package
+
+Colin Fay's ["An introduction to Docker for R Users"](https://colinfay.me/docker-r-reproducibility/)
+
+ R packages that work with Docker/Singularity [**babelwhale**](https://cran.r-project.org/package=babelwhale) and 
+[**dockerfiler**](https://cran.r-project.org/package=dockerfiler)
