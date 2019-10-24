@@ -2,7 +2,7 @@
 
 ## About the talk
 
-**Abstract** On this edition of the “Happy Scientist”, w will discuss about practices and tools that you may, and probably should, include in your research pipeline. The presentation will be mostly focused on summarizing and showing resources for the modern researcher (sounds cliché), most of which have been developed in-house by our division.
+**Abstract** On this edition of the “Happy Scientist”, we will discuss about practices and tools that you may, and probably should, include in your research pipeline. The presentation will be mostly focused on summarizing and showing resources for the modern researcher, most of which have been developed in-house by our division.
 
 **Date**: October 24th, 2019
 
